@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index),
     path('about/', views.index),
     path('help/', views.index)
+    # TODO: Links to views.
 ]
