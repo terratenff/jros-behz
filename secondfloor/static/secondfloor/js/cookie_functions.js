@@ -59,9 +59,9 @@ function toggleDarkMode() {
     var option = box.checked;
     var a = document.getElementById("sitestyle");
 
-    var styleName = "/static/firstfloor/css/light";
+    var styleName = "/static/secondfloor/css/light";
     if (option == true) {
-        styleName = "/static/firstfloor/css/dark";
+        styleName = "/static/secondfloor/css/dark";
     }
 
     a.href = styleName + ".css";
@@ -84,11 +84,11 @@ function initialize() {
     link.rel = "stylesheet";
     link.id = "sitestyle";
 
-    var styleName = "/static/firstfloor/css/light";
+    var styleName = "/static/secondfloor/css/light";
     if (option === "true") {
         console.log("OPTION (LOAD - PASS): " + option);
         checkbox.checked = option;
-        styleName = "/static/firstfloor/css/dark";
+        styleName = "/static/secondfloor/css/dark";
     }
     console.log("STYLE: " + styleName);
     link.href = styleName + ".css";
