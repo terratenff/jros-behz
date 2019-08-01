@@ -25,7 +25,14 @@
             </ul>
         </div>
         <div id="searchbox">
-            <p>Add search bar here</p>
+            <form
+                action="{% url 'secondfloor:search' %}"
+                method="post"
+                id="searchform">
+                {% csrf_token %}
+                <input type="text" placeholder="Search..." name="search">
+                <input type="submit" value="Search">
+            </form>
         </div>
         <div id="toolbox">
             <p>Add tools here</p>
@@ -51,6 +58,7 @@
         </input>
     </div>
 
+    <div id="page_bottom_decorator"></div>
     <div id="page_bottom">
         <div class="page_bottom_container">
             <ul class="page_bottom_list">

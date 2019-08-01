@@ -10,7 +10,8 @@ body {
     top: 0;
     width: 100%;
     height: 50px;
-    background-color: #555555;
+    background-color: #444444;
+    border-bottom: 5px solid #ffffff;
 }
 
 #topbar_functions {
@@ -40,6 +41,35 @@ body {
     text-decoration: none;
     width: 100%;
     height: 100%;
+}
+
+#searchbox {
+    display: flex;
+    align-items: center;
+    height: inherit;
+}
+
+#searchbox input[type=text] {
+    display: inline-block;
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+#searchbox input[type=submit] {
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: #3f3f3f;
+    color: white;
+    border: 2px solid #d6d6d6;
+}
+
+#searchbox input[type=submit]:hover {
+    background-color: #979797;
 }
 
 #toolbox {
@@ -103,6 +133,13 @@ body {
     width: 100%;
     height: 240px;
     background-color: #404040;
+}
+
+#page_bottom_decorator {
+    width: 100%;
+    height: 80px;
+    background-color: #1a1a1a;
+    border-top: 30px solid #ffffff;
 }
 
 .page_bottom_container {
