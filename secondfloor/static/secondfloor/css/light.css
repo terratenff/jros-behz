@@ -43,6 +43,54 @@ body {
     height: 100%;
 }
 
+#toolbox {
+    display: flex;
+    width: 82px;
+    height: inherit;
+    align-items: center;
+    box-sizing: border-box;
+    border: 3px solid #b3e6ff;
+}
+
+#toolbox_cover {
+    display: flex;
+    cursor: pointer;
+    width: inherit;
+    height: inherit;
+    margin-left: -13px;
+    align-items: center;
+    position: absolute;
+}
+
+#toolbox_cover:hover {
+    background-color: white;
+    opacity: 0.5;
+}
+
+#toolbox > p {
+    color: darkblue;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+#toolbox_options {
+    position: fixed;
+    padding: 5px;
+    right: 10px;
+    top: 60px;
+    width: 300px;
+    height: 50%;
+    background-color: #0077b3;
+    border: 5px solid black;
+}
+
+#toolbox_options > p {
+    margin: 0;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: black;
+}
+
 #searchbox {
     display: flex;
     align-items: center;

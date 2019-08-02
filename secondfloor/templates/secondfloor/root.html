@@ -1,11 +1,15 @@
 <!DOCTYPE HTML>
-<html>
+<html data-ng-app="app">
 <head>
     <meta charset="utf-8">
     <meta name="author" content="terratenff">
     <title>{% block title %}Root Title{% endblock title %}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+    {% load static %}
+    <script src="{% static 'secondfloor/js/toolbox_functions/app.js' %}"></script>
+    <script src="{% static 'secondfloor/js/toolbox_functions/services.js' %}"></script>
+    <script src="{% static 'secondfloor/js/toolbox_functions/controllers.js' %}"></script>
 </head>
 <body>
     <div id="topbar">
@@ -34,8 +38,12 @@
                 <input type="submit" value="Search">
             </form>
         </div>
-        <div id="toolbox">
-            <p>Toolbox</p>
+        <div id="toolbox" data-ng-controller="ToolboxCtrl">
+            <div id="toolbox_cover" data-ng-click="viewOptions()"></div>
+            <p>{% verbatim %}{{ frontText }}{% endverbatim %}</p>
+            <div id="toolbox_options" data-ng-show="visible">
+                <p>Add various tools here</p>
+            </div>
         </div>
     </div>
     <div id="page_top">
@@ -49,6 +57,13 @@
         <p>Root HTML</p>
         {% endblock content %}
         <input type="button" value="Dark Mode" onclick="toggleDarkMode()"/>
+        <div data-ng-controller="TestCtrl">
+            <p>Hexadecimal</p>
+            <input type="number" data-ng-model="userInput" data-ng-change="changed()">
+            <p>Results</p>
+            <p>{% verbatim %}{{ userInput }}{% endverbatim %}</p>
+            <p>{% verbatim %}{{ userOutput }}{% endverbatim %}</p>
+        </div>
     </div>
 
     <div id="page_bottom_decorator"></div>
@@ -78,7 +93,7 @@
             </ul>
         </div>
     </div>
-    {% load static %}
+
     <script type="text/javascript" src="{% static 'secondfloor/js/cookie_functions.js' %}"></script>
     <script type="text/javascript" src="{% static 'secondfloor/js/dark_mode.js' %}"></script>
     <script type="text/javascript" src="{% static 'secondfloor/js/privacy_notice.js' %}"></script>
