@@ -35,7 +35,7 @@
             </form>
         </div>
         <div id="toolbox">
-            <p>Add tools here</p>
+            <p>Toolbox</p>
         </div>
     </div>
     <div id="page_top">
@@ -48,14 +48,7 @@
         {% block content %}
         <p>Root HTML</p>
         {% endblock content %}
-        <input
-            type="checkbox"
-            id="darkmode"
-            name="darkmode"
-            value="cssmode"
-            onclick="toggleDarkMode()">
-            <label for="checkbox"> Dark Mode</label>
-        </input>
+        <input type="button" value="Dark Mode" onclick="toggleDarkMode()"/>
     </div>
 
     <div id="page_bottom_decorator"></div>
@@ -85,8 +78,9 @@
             </ul>
         </div>
     </div>
-
     {% load static %}
     <script type="text/javascript" src="{% static 'secondfloor/js/cookie_functions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'secondfloor/js/dark_mode.js' %}"></script>
+    <script type="text/javascript" src="{% static 'secondfloor/js/privacy_notice.js' %}"></script>
 </body>
 </html>
