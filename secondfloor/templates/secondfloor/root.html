@@ -42,7 +42,20 @@
             <div id="toolbox_cover" data-ng-click="viewOptions()"></div>
             <p>{% verbatim %}{{ frontText }}{% endverbatim %}</p>
             <div id="toolbox_options" data-ng-show="visible">
-                <p>Add various tools here</p>
+                <!--<p>Add various tools here</p>-->
+                <p>Number Converter</p>
+                <div data-ng-controller="NumberConverterCtrl">
+                    <p>Set number subject to conversion</p>
+                    <input type="text" data-ng-model="userInput" data-ng-change="changed()">
+                    <p>Set base of initial number</p>
+                    <input type="number" value="10" min="2" max="36" data-ng-model="userInputBaseA" data-ng-change="baseA()">
+                    <p>Set base of result number</p>
+                    <input type="number" value="16" min="2" max="36" data-ng-model="userInputBaseB" data-ng-change="baseB()">
+                    <p>Results</p>
+                    <p>{% verbatim %}{{ userOutput }}{% endverbatim %}</p>
+                </div>
+                <p>Aesthetic Settings</p>
+                <input type="button" value="Toggle Dark Mode" onclick="toggleDarkMode()"/>
             </div>
         </div>
     </div>
@@ -56,14 +69,6 @@
         {% block content %}
         <p>Root HTML</p>
         {% endblock content %}
-        <input type="button" value="Dark Mode" onclick="toggleDarkMode()"/>
-        <div data-ng-controller="TestCtrl">
-            <p>Hexadecimal</p>
-            <input type="number" data-ng-model="userInput" data-ng-change="changed()">
-            <p>Results</p>
-            <p>{% verbatim %}{{ userInput }}{% endverbatim %}</p>
-            <p>{% verbatim %}{{ userOutput }}{% endverbatim %}</p>
-        </div>
     </div>
 
     <div id="page_bottom_decorator"></div>
