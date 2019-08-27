@@ -185,9 +185,9 @@ body {
 
 #page_bottom_decorator {
     width: 100%;
-    height: 80px;
+    height: 30px;
     background-color: #004d99;
-    border-top: 30px solid black;
+    border-top: 5px solid black;
 }
 
 .page_bottom_container {
