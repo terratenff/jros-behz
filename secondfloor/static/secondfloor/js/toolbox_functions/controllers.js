@@ -23,6 +23,38 @@ app.controller('NumberConverterCtrl', function($scope, baseShifter) {
     }
 });
 
+// Base64-Cipher Controller.
+app.controller('Base64Ctrl', function($scope, base64) {
+    $scope.userInputEncode = "";
+    $scope.userInputDecode = "";
+    $scope.resultEncode = "";
+    $scope.resultDecode = "";
+
+    $scope.changedEncode = function() {
+        $scope.resultEncode = base64.encode($scope.userInputEncode);
+    }
+
+    $scope.changedDecode = function() {
+        $scope.resultDecode = base64.decode($scope.userInputDecode);
+    }
+});
+
+// Caesar Cipher Controller.
+app.controller('CaesarCtrl', function($scope, caesar) {
+    $scope.userInput = "";
+    $scope.userInputShift = 3;
+    $scope.result = "NaN";
+
+    $scope.shift = function() {
+        caesar.setShift($scope.userInputShift);
+        $scope.result = caesar.encode($scope.userInput);
+    }
+
+    $scope.changed = function() {
+        $scope.result = caesar.encode($scope.userInput);
+    }
+});
+
 // Toolbox Controller.
 app.controller('ToolboxCtrl', function($scope) {
     $scope.frontText = "Toolbox";

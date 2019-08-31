@@ -13,17 +13,17 @@ app.service('baseShifter', function() {
     this.setBaseB = function(x) {
         this.baseB = x;
     }
-    this.shift = function (x) {
+    this.shift = function(x) {
         return parseInt(x, this.baseA).toString(this.baseB);
     }
 });
 
 // Encodes/Decodes text with Base64.
 app.service('base64', function() {
-    this.encode = function (x) {
+    this.encode = function(x) {
         return btoa(x);
     }
-    this.decode = function (x) {
+    this.decode = function(x) {
         try {
             return atob(x);
         } catch(err) {
@@ -41,17 +41,19 @@ app.service('caesar', function() {
     this.setShift = function(x) {
         this.shift = x;
     }
-    this.encode = function (x) {
-        var result = x;
-        for (var i = 0; i < result.length; i++) {
-            var charIndexLow = this.alphabetReferenceLow.indexOf(result[i]);
-            var charIndexHigh = this.alphabetReferenceLow.indexOf(result[i]);
+    this.encode = function(x) {
+        var chars = [];
+        for (var i = 0; i < x.length; i++) {
+            var charIndexLow = this.alphabetReferenceLow.indexOf(x[i]);
+            var charIndexHigh = this.alphabetReferenceLow.indexOf(x[i]);
+            var shiftedChar = x[i];
             if (charIndexLow !== -1) {
-                result[i] = this.alphabetReferenceLow[charIndexLow + this.shift % 26];
+                shiftedChar = this.alphabetReferenceLow[(charIndexLow + this.shift) % 26];
             } else if (charIndexHigh !== -1) {
-                result[i] = this.alphabetReferenceHigh[charIndexHigh + this.shift % 26];
+                shiftedChar = this.alphabetReferenceHigh[(charIndexHigh + this.shift) % 26];
             }
+            chars.push(shiftedChar);
         }
-        return result;
+        return chars.join("");
     }
 });

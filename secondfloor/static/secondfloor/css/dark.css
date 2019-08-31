@@ -43,58 +43,13 @@ body {
     height: 100%;
 }
 
-#toolbox {
-    display: flex;
-    width: 82px;
-    height: inherit;
-    align-items: center;
-    box-sizing: border-box;
-    border: 3px solid #cccccc;
-}
-
-#toolbox_cover {
-    display: flex;
-    cursor: pointer;
-    width: inherit;
-    height: inherit;
-    margin-left: -13px;
-    align-items: center;
-    position: absolute;
-}
-
-#toolbox_cover:hover {
-    background-color: white;
-    opacity: 0.5;
-}
-
-#toolbox > p {
-    color: white;
-    font-size: 16px;
-    font-family: sans-serif;
-}
-
-#toolbox_options {
-    position: fixed;
-    padding: 5px;
-    right: 10px;
-    top: 60px;
-    width: 300px;
-    height: 50%;
-    background-color: #444444;
-    border: 5px solid white;
-}
-
-#toolbox_options > p {
-    margin: 0;
-    font-size: 16px;
-    font-family: sans-serif;
-    color: white;
-}
-
 #searchbox {
     display: flex;
     align-items: center;
     height: inherit;
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #searchbox input[type=text] {
@@ -118,18 +73,6 @@ body {
 
 #searchbox input[type=submit]:hover {
     background-color: #979797;
-}
-
-#toolbox {
-    float: right;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-#searchbox {
-    float: right;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 #page_top {
@@ -221,4 +164,72 @@ body {
     text-decoration: none;
     width: 100%;
     height: 100%;
+}
+
+/* - Toolbox-specific customizations - */
+
+#toolbox {
+    display: flex;
+    width: 82px;
+    height: inherit;
+    align-items: center;
+    box-sizing: border-box;
+    border: 3px solid #cccccc;
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#toolbox_cover {
+    display: flex;
+    cursor: pointer;
+    width: inherit;
+    height: inherit;
+    margin-left: -13px;
+    align-items: center;
+    position: absolute;
+}
+
+#toolbox_cover:hover {
+    background-color: white;
+    opacity: 0.5;
+}
+
+#toolbox > p {
+    color: white;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+#toolbox_options {
+    position: fixed;
+    padding: 5px;
+    right: 5px;
+    top: 60px;
+    width: 300px;
+    height: 50%;
+    background-color: #444444;
+    overflow-y: scroll;
+    border: 5px solid white;
+}
+
+#toolbox_options > p {
+    margin: 0;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: white;
+}
+
+div.tool {
+    box-sizing: border-box;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    word-break: break-all;
+}
+
+p.tool {
+    margin: 0;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: white;
 }

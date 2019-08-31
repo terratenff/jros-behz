@@ -43,19 +43,95 @@
             <p>{% verbatim %}{{ frontText }}{% endverbatim %}</p>
             <div id="toolbox_options" data-ng-show="visible">
                 <!--<p>Add various tools here</p>-->
-                <p>Number Converter</p>
-                <div data-ng-controller="NumberConverterCtrl">
-                    <p>Set number subject to conversion</p>
-                    <input type="text" data-ng-model="userInput" data-ng-change="changed()">
-                    <p>Set base of initial number</p>
-                    <input type="number" value="10" min="2" max="36" data-ng-model="userInputBaseA" data-ng-change="baseA()">
-                    <p>Set base of result number</p>
-                    <input type="number" value="16" min="2" max="36" data-ng-model="userInputBaseB" data-ng-change="baseB()">
-                    <p>Results</p>
-                    <p>{% verbatim %}{{ userOutput }}{% endverbatim %}</p>
+                <div class="tool" data-ng-controller="NumberConverterCtrl">
+                    <p class="tool">Number Converter</p>
+                    <br>
+                    <table style="width:100%;">
+                        <tr>
+                            <td>
+                                <p class="tool">Number</p>
+                            </td>
+                            <td>
+                                <input type="text" style="float:right;" data-ng-model="userInput" data-ng-change="changed()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="tool">Initial base</p>
+                            </td>
+                            <td>
+                                <input type="number" style="float:right;" value="10" min="2" max="36" data-ng-model="userInputBaseA" data-ng-change="baseA()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="tool">Result base</p>
+                            </td>
+                            <td>
+                                <input type="number" style="float:right;" value="16" min="2" max="36" data-ng-model="userInputBaseB" data-ng-change="baseB()">
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p class="tool">Results: </p>
+                    <p class="tool">{% verbatim %}{{ userOutput }}{% endverbatim %}</p>
                 </div>
-                <p>Aesthetic Settings</p>
-                <input type="button" value="Toggle Dark Mode" onclick="toggleDarkMode()"/>
+                <br>
+                <div class="tool" data-ng-controller="Base64Ctrl">
+                    <p class="tool">Base64-Cipher</p>
+                    <br>
+                    <table style="width:100%;">
+                        <tr>
+                            <td width="50%">
+                                <p class="tool">Encode Text</p>
+                            </td>
+                            <td>
+                                <input type="text" style="float:right;" data-ng-model="userInputEncode" data-ng-change="changedEncode()">
+                            </td>
+                        </tr>
+                        <tr><td colspan="2"><p class="tool">{% verbatim %}{{ resultEncode }}{% endverbatim %}</p></td></tr>
+                        <tr>
+                            <td width="50%">
+                                <p class="tool">Decode Text</p>
+                            </td>
+                            <td>
+                                <input type="text" style="float:right;" data-ng-model="userInputDecode" data-ng-change="changedDecode()">
+                            </td>
+                        </tr>
+                        <tr><td colspan="2"><p class="tool">{% verbatim %}{{ resultDecode }}{% endverbatim %}</p></td></tr>
+                    </table>
+                </div>
+                <br>
+                <div class="tool" data-ng-controller="CaesarCtrl">
+                    <p class="tool">Caesar Cipher</p>
+                    <br>
+                    <table style="width:100%;">
+                        <tr>
+                            <td>
+                                <p class="tool">Subject Text</p>
+                            </td>
+                            <td>
+                                <input type="text" style="float:right;" data-ng-model="userInput" data-ng-change="changed()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="tool">Caesar Shift</p>
+                            </td>
+                            <td>
+                                <input type="number" style="float:right;" value="3" min="0" max="26" data-ng-model="userInputShift" data-ng-change="shift()">
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p class="tool">Results:</p>
+                    <p class="tool">{% verbatim %}{{ result }}{% endverbatim %}</p>
+                </div>
+                <br>
+                <div class="tool">
+                    <p class="tool">Aesthetic Settings</p>
+                    <input type="button" value="Toggle Dark Mode" onclick="toggleDarkMode()"/>
+                </div>
             </div>
         </div>
     </div>
