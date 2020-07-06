@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE HTML>
 <html data-ng-app="app">
 <head>
@@ -6,7 +7,7 @@
     <title>{% block title %}Root Title{% endblock title %}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
-    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'secondfloor/css/general.css' %}">
     <script src="{% static 'secondfloor/js/toolbox_functions/app.js' %}"></script>
     <script src="{% static 'secondfloor/js/toolbox_functions/services.js' %}"></script>
     <script src="{% static 'secondfloor/js/toolbox_functions/controllers.js' %}"></script>
