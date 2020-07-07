@@ -13,10 +13,10 @@ function toggleDarkMode() {
     var optionReverse = "true";
     var stylesheet = document.getElementById("sitestyle");
 
-    var styleName = "/static/secondfloor/css/dark";
+    var styleName = "/static/groundfloor/css/dark";
     if (option === "true") {
         optionReverse = "false";
-        styleName = "/static/secondfloor/css/light";
+        styleName = "/static/groundfloor/css/light";
     }
 
     stylesheet.href = styleName + ".css";
@@ -38,10 +38,10 @@ function initialize() {
     link.rel = "stylesheet";
     link.id = "sitestyle";
 
-    var styleName = "/static/secondfloor/css/light";
+    var styleName = "/static/groundfloor/css/light";
     if (option === "true") {
         console.log("OPTION (LOAD - PASS): " + option);
-        styleName = "/static/secondfloor/css/dark";
+        styleName = "/static/groundfloor/css/dark";
     }
     console.log("STYLE: " + styleName);
     link.href = styleName + ".css";
