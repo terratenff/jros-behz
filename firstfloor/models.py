@@ -26,7 +26,8 @@ class Profile(models.Model):
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # The following details can be found from User Model:
+
+    # Useful User Model attributes:
     # first_name
     # last_name
     # email
@@ -34,6 +35,7 @@ class Profile(models.Model):
     # is_superuser
     # date_joined
     # last_login
+
     friend_list = models.ManyToManyField("self")
     description = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=255, blank=False)
@@ -52,7 +54,7 @@ class Profile(models.Model):
             y = Profile Username
         """
 
-        return "(ID = " + str(self.pk) + ") Profile: " + self.user.username
+        return "(ID = {}) Profile: {}".format(str(self.pk), self.user.username)
 
     def __eq__(self, other):
         """
@@ -71,96 +73,6 @@ class Profile(models.Model):
             return True
         else:
             return False
-
-    def get_user(self):
-        """
-        Getter for the user instance of the Profile.
-
-        Returns
-        -------
-        User
-            User instance bound to the Profile.
-        """
-
-        return self.user
-
-    def get_description(self):
-        """
-        Getter for the description of the Profile.
-
-        Returns
-        -------
-        string
-            Profile description.
-        """
-
-        return self.description
-
-    def get_location(self):
-        """
-        Getter for the location of the Profile.
-
-        Returns
-        -------
-        string
-            String representation of the location of the creator
-            of the Profile.
-        """
-
-        return self.location
-
-    def get_birthdate(self):
-        """
-        Getter for the birth date of the creator of the Profile.
-
-        Returns
-        -------
-        datetime
-            Date of birth of the creator of the Profile.
-        """
-
-        return self.birthdate
-
-    def set_description(self, desc):
-        """
-        Setter for the description of the Profile.
-        Does not save the change to the database.
-
-        Parameters
-        ----------
-        desc : string
-            Target description for the Profile.
-        """
-
-        self.description = desc
-
-    def set_location(self, loc):
-        """
-        Setter for the location of the Profile.
-        Does not save the change to the database.
-
-        Parameters
-        ----------
-        loc : string
-            String representation of the location of the creator
-            of the Profile.
-        """
-
-        self.location = loc
-
-    def set_birthdate(self, date):
-        """
-        Setter for the birth date of the Profile.
-        Does not save the change to the database.
-
-        Parameters
-        ----------
-        date : datetime
-            Date instance of the birth date of the creator
-            of the Profile.
-        """
-
-        self.birthdate = date
 
     def check_friend_request(self, other):
         """
@@ -299,6 +211,16 @@ class Profile(models.Model):
 
     def remove_friend(self, other):
         """
+        Removes specified Profile from the friend list.
+        Does nothing if specified Profile is not on the list.
+
+        Saves any changes that have been made into the database.
+
+        Parameters
+        ----------
+        other : Profile
+            The Profile instance that is to be removed from
+            the friend list.
         """
 
         if self == other:
@@ -310,6 +232,10 @@ class Profile(models.Model):
         friend_request = self.check_friend_request(other)
         if friend_request is None:
             friend_request = other.check_friend_request(self)
+            if friend_request is None:
+                # Friend request does not exist. Aborting procedure.
+                return
+
         friend_request.set_status(False)
         friend_request.save()
 
@@ -341,127 +267,277 @@ class FriendRequest(models.Model):
         - None: Friend request is pending.
     """
 
-    sender = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="sender")
-    receiver = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="receiver")
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="sender")
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="receiver")
     request_date = models.DateTimeField(default=datetime.now)
-    status = models.BooleanField()
+    status = models.BooleanField(default=None)
 
     def __str__(self):
-        return "Friend Request - Sender / Receiver:" + self.sender.user.username + " / " self.receiver.user.username
-
-    def get_sender(self):
         """
-        Getter for the sender of the friend request.
+        Getter for string representation of the friend request.
 
         Returns
         -------
-        Profile
-            Profile instance of the creator of the friend request.
+        string
+            String representation of the friend request:
+            '(ID = x) Friend Request - Sender / Receiver: y / z', where
+            x = Friend Request ID
+            y = Sender Profile
+            z = Receiver Profile
         """
+        return "(ID = {}) Friend Request - Sender / Receiver: {} / {}".format(str(self.pk), self.sender.user.username, other.sender.user.username)
 
-        return self.sender
+class DiscussionGroup(models.Model):
+    """
+    Discussion-oriented group instance. Profiles can join these groups,
+    be it public, passphrase-protected or invitation only.
 
-    def get_receiver(self):
+    Attributes
+    ----------
+    title : string
+        The topic of the group.
+    description : string
+        Further details relating to the topic of the group.
+    creator : Profile
+        Profile instance of the one who created the group.
+    creation_date : datetime
+        Time at which the group was created.
+    participants : List<Profile>
+        List of Profiles that are a part of the group.
+    passphrase : string
+        A phrase that a Profile has to provide in order to join
+        the group. If this is blank, passphrase is not required.
+    invitation_required : bool
+        Determines whether a Profile can only join the group via
+        an invitation.
+    invitees : List<Profile>
+        List of Profiles that have been invited to the group.
+    """
+
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=255)
+    creator = models.ForeignKey(Profile, on_delete=models.SET_NULL, related_name="profile_created_groups", blank=True, null=True)
+    creation_date = models.DateTimeField(default=datetime.now)
+    participants = models.ManyToManyField(Profile, related_name="profile_associated_groups")
+    passphrase = models.CharField(max_length=50, blank=True)
+    invitation_required = models.BooleanField(default=False)
+    invitees = models.ManyToManyField(Profile, related_name="profile_group_invitations")
+
+    def __str__(self):
         """
-        Getter for the receiver of the friend request.
+        Getter for string representation of the discussion group.
 
         Returns
         -------
-        Profile
-            Profile instance of the receiver of the friend request.
+        string
+            String representation of the discussion group:
+            '(ID = x) Discussion Group y, created by z at a', where
+            x = Discussion Group ID
+            y = Topic of the group
+            z = Creator of the group (Profile username)
+            a = Date of creation
         """
 
-        return self.receiver
+        return "(ID = {}) Discussion Group '{}', created by '{}' at {}".format(str(self.pk), self.title, self.creator.user.username, str(self.creation_date))
 
-    def get_request_date(self):
+class Discussion(models.Model):
+    """
+    Instance of a discussion, between 2 or more Profiles, or related
+    to a particular group.
+
+    ...
+
+    Attributes
+    ----------
+    title : string
+        The topic of the discussion, displayed as a string.
+    description : string
+        Further details of the discussion, relating to its title.
+    creator : Profile
+        Profile instance of the user who created it.
+    creation_date : datetime
+        The time at which the discussion was created.
+    related_group : DiscussionGroup
+        A group that the discussion might be associated with.
+        This can be None.
+    """
+
+    title = models.CharField(max_length=50, default="Unspecified Discussion Topic")
+    description = models.CharField(max_length=255, blank=True, null=True)
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile_created_discussions")
+    creation_date = models.DateTimeField(default=datetime.now, blank=True)
+    related_group = models.ForeignKey(DiscussionGroup, on_delete=models.SET_NULL, related_name="group_discussions", blank=True, null=True)
+
+    def __str__(self):
         """
-        Getter for the date of the creation of the friend request.
+        Getter for string representation of the Discussion.
 
         Returns
         -------
-        datetime
-            Date instance of the time at which the friend request
-            was created.
+        string
+            String representation of the Discussion:
+            '(ID = x) Discussion subject: y, created by z at a', where
+            x = Discussion ID
+            y = Discussion Title
+            z = Discussion Creator (Profile username)
+            a = Time of creation
         """
 
-        return self.request_date
+        return "(ID = {}) Discussion subject: '{}', created by '{}' at '{}'".format(str(self.pk), self.title, self.creator.user.username, str(self.creation_date))
 
-    def get_status(self):
+class Comment(models.Model):
+    """
+    Instance of feedback left behind by a User Profile on a
+    discussion instance.
+
+    ...
+
+    Attributes
+    ----------
+    commenter : Profile
+        The Profile instance that created the comment.
+    creation_date : datetime
+        The time at which the comment was created.
+    edit_date : datetime
+        The time at which the comment was most recently edited.
+    contents : string
+        The comment itself.
+    related_discussion : Discussion
+        The discussion that the comment is associated with.
+    approval : int
+        Integer rating of the comment.
+    """
+
+    commenter = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, related_name="profile_comments")
+    creation_date = models.DateTimeField(default=datetime.now)
+    edit_date = models.DateTimeField(default=datetime.now)
+    contents = models.CharField(max_length=255)
+    related_discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE, blank=True, null=True, related_name="discussion_comments")
+    approval = models.IntegerField(default=0)
+
+    def __str__(self):
         """
-        Getter for the status of the friend request.
+        Getter for string representation of the comment instance.
 
         Returns
         -------
-        bool
-            Current status of the friend request:
-            - True: Friend request was accepted.
-            - False: Friend request was declined.
-            - None: Friend request is pending.
+        string
+            String representation of the comment:
+            '(ID = x) Comment by y at z', where
+            x = Comment ID
+            y = Profile Username
+            z = Creation Date
         """
 
-        return self.status
+        return "(ID = {}) Comment by '{}' at '{}'".format(str(self.pk), self.commenter.user.username, str(self.creation_date))
 
-    def set_sender(self, sender_instance):
+    def edit_comment(self, new_comment):
         """
-        Setter for the sender of the friend request.
-        Does not save the change to the database.
+        Applies an edit to the comment, updating the edit date
+        in the process.
+
+        Saves any changes that have been made into the database.
 
         Parameters
         ----------
-        sender_instance : Profile
-            Profile instance of the target creator of the
-            friend request.
+        new_comment : string
+            New contents of the comment.
         """
 
-        self.sender = sender_instance
+        self.contents = new_comment
+        self.edit_date = datetime.now()
+        self.save()
 
-    def set_receiver(self, receiver_instance):
+    def add_approval(self, approval_value):
         """
-        Setter for the receiver of the friend request.
-        Does not save the change to the database.
+        Adds a vote of approval/disapproval to the comment.
+
+        Saves any changes that have been made into the database.
 
         Parameters
         ----------
-        receiver_instance : Profile
-            Profile instance of the target receiver of the
-            friend request.
+        approval_value : bool
+            If True, approve of the comment (increment by 1).
+            If False, disapprove of the comment (decrement by 1).
+
+        Returns
+        -------
+        int
+            Current approval rating of the comment after
+            applying user approval.
         """
 
-        self.receiver = receiver_instance
+        if approval_value is True:
+            self.approval = self.approval + 1
+        else:
+            self.approval = self.approval - 1
 
-    def set_request_date(self, date):
+        self.save()
+        return self.approval
+
+class Event(models.Model):
+    """
+    Simple representation of an event, scheduled to take place in
+    a specified location.
+
+    ...
+
+    Attributes
+    ----------
+    title : string
+        Briefly describes the topic of the event.
+    description : string
+        Provides more details on the topic of the event.
+    host : Profile
+        Profile instance of the user who hosts the event.
+    participants : List<Profile>
+        List of people who are going to participate in the event.
+    invitees : List<Profile>
+        List of people who are specifically invited to the event.
+        A Profile being on this list bypasses the 'private' flag
+        for them.
+    location : string
+        The venue of the event.
+    start_date : datetime
+        Time at which the event will start.
+    end_date : datetime
+        Time at which the event will end.
+    cancelled : bool
+        Determines whether the event has been cancelled.
+    private : bool
+        Determines the availability of the event. If set to True,
+        only friends of the host can participate. If set to False,
+        anyone can participate.
+    """
+
+    title = models.CharField(max_length=50)
+    description = models.TextField()
+    host = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile_hosted_events")
+    participants = models.ManyToManyField(Profile, related_name="profile_attended_events")
+    invitees = models.ManyToManyField(Profile, related_name="profile_event_invitations")
+    location = models.CharField(max_length=50)
+    start_date = models.DateTimeField(default=datetime.now)
+    end_date = models.DateTimeField(default=datetime.now)
+    cancelled = models.BooleanField(default=False)
+    private = models.BooleanField(default=False)
+
+    def __str__(self):
         """
-        Setter for the request date of the friend request.
-        Does not save the change to the database.
+        Getter for string representation of the event.
 
-        Parameters
-        ----------
-        date : datetime
-            Target time at which the friend request was created.
+        Returns
+        -------
+        string
+            String representation of the event:
+            '(ID = x) Event y, hosted by z', where
+            x = Event ID
+            y = Event Title
+            z = Event Host (Profile username)
         """
 
-        self.request_date = date
+        return "(ID = {}) Event '{}' in '{}', hosted by '{}'".format(str(self.pk), self.title, self.location, self.host.user.username)
 
-    def set_status(self, state):
-        """
-        Setter for the status of the friend request.
-        Does not save the change to the database.
-
-        Parameters
-        ----------
-        state : bool
-            Target state of the friend request:
-            - True: Friend request was accepted.
-            - False: Friend request was declined.
-            - None: Friend request is pending.
-        """
-
-        self.status = state
-
-# TODO: Models
-# - Comment
-# - Discussion
-# - DiscussionGroup
-# - Event
+# TODO: "thirdfloor Models"
 # - Forum
 # - ForumPost
+# - PostVote
