@@ -4,8 +4,8 @@ from . import views
 
 app_name = 'firstfloor'
 urlpatterns = [
-    path('', views.index, name = 'index'),
-    path('login/', views.login_prompt, name = 'login'),
-    path('profile/', views.profile, name = 'profile'),
-    path('profile/<name>/', views.other_profile, name = 'other_profile')
+    path('firstfloorindex/', views.index, name = 'index'),
+    path('firstfloorlogin/', views.login_prompt, name = 'login'),
+    path('firstfloorprofile/', views.profile, name = 'profile'),
+    path('firstfloorprofile/<name>/', views.other_profile, name = 'other_profile')
 ]

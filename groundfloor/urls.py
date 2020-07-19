@@ -16,10 +16,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-# from . import views
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('firstfloor.urls')),
-    path('', include('secondfloor.urls'))
+    path('', include('firstfloor.urls')),
+    path('', include('secondfloor.urls')),
+    # path('forum/', include('thirdfloor.urls')),
+    path('', views.index, name='index'),
+    path('a_profile/', views.profile, name='profile'),
+    path('a_people/', views.people, name='people'),
+    path('a_groups/', views.groups, name='groups'),
+    path('forum/', views.forum, name='forum'),
+    path('a_events/', views.events, name='events'),
+    path('a_login/', views.login, name='login'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+    path('help/', views.help, name='help'),
+    path('rules/', views.rules, name='rules'),
+    path('guidelines/', views.guidelines, name='guidelines'),
+    path('report_abuse/', views.report_abuse, name='reportabuse'),
+    path('privacy_policy/', views.privacy_policy, name='privacypolicy'),
+    path('feedback/', views.feedback, name='feedback'),
+    path('customer_support/', views.customer_support, name='customersupport'),
+    path('report_bug/', views.report_bug, name='reportbug'),
+    path('search/', views.search, name='search')
 ]
