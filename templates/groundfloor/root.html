@@ -5,16 +5,20 @@
     <meta charset="utf-8">
     <meta name="author" content="terratenff">
     <title>{% block title %}Root Title{% endblock title %}</title>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="{% static 'groundfloor/css/general.css' %}">
+
     <script src="{% static 'secondfloor/js/toolbox_functions/app.js' %}"></script>
     <script src="{% static 'secondfloor/js/toolbox_functions/services.js' %}"></script>
     <script src="{% static 'secondfloor/js/toolbox_functions/controllers.js' %}"></script>
 </head>
 <body>
     <div id="topbar">
+
         <div id="topbar_functions">
             <ul id="topbar_functions_list">
                 <li><a href="{% url 'index' %}">Home</a></li>
@@ -30,6 +34,7 @@
                 {% endif %}
             </ul>
         </div>
+
         <div id="searchbox">
             <form
                 action="{% url 'search' %}"
@@ -39,14 +44,18 @@
                 <input type="submit" value="Search">
             </form>
         </div>
+
+        {% block toolbox %}
         <div id="toolbox" data-ng-controller="ToolboxCtrl">
             <div id="toolbox_cover" data-ng-click="viewOptions()"></div>
             <p>{% verbatim %}{{ frontText }}{% endverbatim %}</p>
+
             <div id="toolbox_options" data-ng-show="visible">
-                <!--<p>Add various tools here</p>-->
+
                 <div class="tool" data-ng-controller="NumberConverterCtrl">
                     <p class="tool">Number Converter</p>
                     <br>
+
                     <table style="width:100%;">
                         <tr>
                             <td>
@@ -78,6 +87,7 @@
                     <p class="tool">{% verbatim %}{{ userOutput }}{% endverbatim %}</p>
                 </div>
                 <br>
+
                 <div class="tool" data-ng-controller="Base64Ctrl">
                     <p class="tool">Base64-Cipher</p>
                     <br>
@@ -103,6 +113,7 @@
                     </table>
                 </div>
                 <br>
+
                 <div class="tool" data-ng-controller="CaesarCtrl">
                     <p class="tool">Caesar Cipher</p>
                     <br>
@@ -129,17 +140,20 @@
                     <p class="tool">{% verbatim %}{{ result }}{% endverbatim %}</p>
                 </div>
                 <br>
+
                 <div class="tool">
                     <p class="tool">Aesthetic Settings</p>
                     <input type="button" value="Toggle Dark Mode" onclick="toggleDarkMode()"/>
                 </div>
+
             </div>
         </div>
+        {% endblock toolbox %}
     </div>
+
     <div id="page_top">
-        {% block pagetitle %}
-        <h1>Website Title</h1>
-        {% endblock pagetitle %}
+        {% block topnotice %}{% endblock topnotice %}
+        {% block pagetitle %}<h1>Website Title</h1>{% endblock pagetitle %}
     </div>
 
     <div id="content">
@@ -148,8 +162,12 @@
         {% endblock content %}
     </div>
 
-    <div id="page_bottom_decorator"></div>
+    <div id="page_bottom_decorator">
+        {% block bottomnotice %}{% endblock bottomnotice %}
+    </div>
+
     <div id="page_bottom">
+
         <div class="page_bottom_container">
             <ul class="page_bottom_list">
                 <li><a href="{% url 'index' %}">Home</a></li>
@@ -158,6 +176,7 @@
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
         </div>
+
         <div class="page_bottom_container">
             <ul class="page_bottom_list">
                 <li><a href="{% url 'help' %}">Help</a></li>
@@ -166,6 +185,7 @@
                 <li><a href="{% url 'reportabuse' %}">Report Abuse</a></li>
             </ul>
         </div>
+
         <div class="page_bottom_container">
             <ul class="page_bottom_list">
                 <li><a href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
@@ -174,8 +194,10 @@
                 <li><a href="{% url 'reportbug' %}">Report a Bug</a></li>
             </ul>
         </div>
+
     </div>
 
+    {% block sitescripts %}{% endblock sitescripts %}
     <script type="text/javascript" src="{% static 'groundfloor/js/cookie_functions.js' %}"></script>
     <script type="text/javascript" src="{% static 'groundfloor/js/dark_mode.js' %}"></script>
     <script type="text/javascript" src="{% static 'groundfloor/js/privacy_notice.js' %}"></script>
