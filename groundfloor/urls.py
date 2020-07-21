@@ -21,7 +21,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('firstfloor.urls')),
-    path('', include('secondfloor.urls')),
+    path('toolbox/', include('secondfloor.urls')),
     # path('forum/', include('thirdfloor.urls')),
     path('', views.index, name='index'),
     path('a_profile/', views.profile, name='profile'),
