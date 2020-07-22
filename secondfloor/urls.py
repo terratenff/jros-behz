@@ -4,6 +4,6 @@ from . import views
 
 app_name = 'secondfloor'
 urlpatterns = [
-    # path('secondfloorindex/', views.index, name='index'),
-    # path('secondfloorprofile/', views.profile, name='profile')
+    # path('general/', views.toolbox, name='toolbox_general'),
+    # path('settings/', views.toolbox_settings, name='toolbox_settings')
 ]

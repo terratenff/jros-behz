@@ -10,79 +10,27 @@ def index(request):
 
     return render(request, "groundfloor/common/index.html", context = None)
 
-def profile(request):
-    """
-    General Profile page. Extensive profile page can be found
-    from 'firstfloor'.
-
-    TODO: Move this to 'firstfloor'.
-    """
-
-    return render(request, "groundfloor/common/index.html", context = None)
-
-def people(request):
-    """
-    People page. Contains a search bar that can be used
-    to find people.
-
-    TODO: Move this to 'firstfloor'.
-    """
-
-    return render(request, "groundfloor/common/index.html", context = None)
-
-def groups(request):
-    """
-    Group page. Contains a list of popular 'public'
-    groups, and a search bar for finding more. Also contains
-    a button for creating a group (requires logging in).
-
-    TODO: Move this to 'firstfloor'.
-    """
-
-    return render(request, "groundfloor/common/index.html", context = None)
-
 def forum(request):
     """
     Forum Entrance page. Contains an introduction to the
     forum itself.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
-
-def events(request):
-    """
-    Events page. Contains a short list of popular 'public'
-    events, and a search bar for finding more. Also contains
-    a button for creating an event (requires logging in).
-
-    TODO: Move this to 'firstfloor'.
-    """
-
-    return render(request, "groundfloor/common/index.html", context = None)
-
-def login(request):
-    """
-    General Login page. Contains the option to sign in to an
-    existing account, and the option to create a new one.
-
-    TODO: Move this to 'firstfloor'.
-    """
-
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/forum.html", context = None)
 
 def about(request):
     """
     About page. Contains general information about the website.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/about.html", context = None)
 
 def contact(request):
     """
     Contact page. Contains contact information.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/contact.html", context = None)
 
 def help(request):
     """
@@ -90,14 +38,14 @@ def help(request):
     the website.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/help.html", context = None)
 
 def rules(request):
     """
     Rules page. Contains a set of rules that have to be followed.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/rules.html", context = None)
 
 def guidelines(request):
     """
@@ -105,7 +53,7 @@ def guidelines(request):
     are encouraged to follow within the website.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/guidelines.html", context = None)
 
 def report_abuse(request):
     """
@@ -113,7 +61,7 @@ def report_abuse(request):
     potential rule violation.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/report_abuse.html", context = None)
 
 def privacy_policy(request):
     """
@@ -121,7 +69,7 @@ def privacy_policy(request):
     GDPR things).
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/privacy_policy.html", context = None)
 
 def feedback(request):
     """
@@ -129,7 +77,7 @@ def feedback(request):
     website further.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/feedback.html", context = None)
 
 def customer_support(request):
     """
@@ -139,7 +87,7 @@ def customer_support(request):
     is too specific.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/customer_support.html", context = None)
 
 def report_bug(request):
     """
@@ -147,7 +95,7 @@ def report_bug(request):
     with the website.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/report_bug.html", context = None)
 
 def search(request):
     """
@@ -158,4 +106,4 @@ def search(request):
     as well.
     """
 
-    return render(request, "groundfloor/common/index.html", context = None)
+    return render(request, "groundfloor/common/search.html", context = None)

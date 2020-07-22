@@ -22,15 +22,19 @@
         <div id="topbar_functions">
             <ul id="topbar_functions_list">
                 <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'people' %}">People</a></li>
-                <li><a href="{% url 'groups' %}">Groups</a></li>
-                <li><a href="{% url 'forum' %}">Forum</a></li>
-                <li><a href="{% url 'events' %}">Events</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'login' %}">Log Out</a></li>
+                <li><a href="{% url 'firstfloor:profile' user.get_username %}">Profile</a></li>
                 {% else %}
-                <li><a href="{% url 'login' %}">Log In</a></li>
+                <li><a href="{% url 'firstfloor:profile_overview' %}">Profile</a></li>
+                {% endif %}
+                <li><a href="{% url 'firstfloor:people' %}">People</a></li>
+                <li><a href="{% url 'firstfloor:groups' %}">Groups</a></li>
+                <li><a href="{% url 'forum' %}">Forum</a></li>
+                <li><a href="{% url 'firstfloor:events' %}">Events</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'firstfloor:logout' %}">Log Out</a></li>
+                {% else %}
+                <li><a href="{% url 'firstfloor:login' %}">Log In</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -45,7 +49,6 @@
             </form>
         </div>
 
-        {% block toolbox %}
         <div id="toolbox" data-ng-controller="ToolboxCtrl">
             <div id="toolbox_cover" data-ng-click="viewOptions()"></div>
             <p>{% verbatim %}{{ frontText }}{% endverbatim %}</p>
@@ -148,7 +151,7 @@
 
             </div>
         </div>
-        {% endblock toolbox %}
+
     </div>
 
     <div id="page_top">
@@ -171,7 +174,11 @@
         <div class="page_bottom_container">
             <ul class="page_bottom_list">
                 <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'profile' %}">Profile</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'firstfloor:profile' user.get_username %}">Profile</a></li>
+                {% else %}
+                <li><a href="{% url 'firstfloor:profile_overview' %}">Profile</a></li>
+                {% endif %}
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
@@ -182,16 +189,16 @@
                 <li><a href="{% url 'help' %}">Help</a></li>
                 <li><a href="{% url 'rules' %}">Rules</a></li>
                 <li><a href="{% url 'guidelines' %}">Guidelines</a></li>
-                <li><a href="{% url 'reportabuse' %}">Report Abuse</a></li>
+                <li><a href="{% url 'report_abuse' %}">Report Abuse</a></li>
             </ul>
         </div>
 
         <div class="page_bottom_container">
             <ul class="page_bottom_list">
-                <li><a href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
                 <li><a href="{% url 'feedback' %}">Feedback</a></li>
-                <li><a href="{% url 'customersupport' %}">Customer Support</a></li>
-                <li><a href="{% url 'reportbug' %}">Report a Bug</a></li>
+                <li><a href="{% url 'customer_support' %}">Customer Support</a></li>
+                <li><a href="{% url 'report_bug' %}">Report a Bug</a></li>
             </ul>
         </div>
 
