@@ -17,7 +17,6 @@ body {
 
 #topbar_functions_list > li {
     color: #dddddd;
-    font-family: sans-serif;
 }
 
 #topbar_functions_list > li:hover {
@@ -33,14 +32,12 @@ body {
 }
 
 #searchbox input[type=text] {
-    font-family: sans-serif;
     background-color: black;
     color: white;
     border: 1px solid white;
 }
 
 #searchbox input[type=submit] {
-    font-family: sans-serif;
     background-color: #3f3f3f;
     color: white;
     border: 2px solid #d6d6d6;
@@ -55,7 +52,6 @@ body {
 }
 
 #page_top > h1 {
-    font-family:sans-serif;
     color: white;
 }
 
@@ -65,7 +61,12 @@ body {
 
 #content > p {
     color: white;
-    font-family: sans-serif;
+}
+
+.content_button {
+    background-color: #474747;
+    border: 2px solid #d6d6d6;
+    color: #f8f8f8;
 }
 
 #privacy_notice {
@@ -75,7 +76,6 @@ body {
 
 #privacy_notice > p {
     color: #dddddd;
-    font-family: sans-serif;
 }
 
 #page_bottom {
@@ -97,7 +97,6 @@ body {
 
 .page_bottom_list > li {
     color: #888888;
-    font-family: sans-serif;
     border: 2px solid #cccccc;
 }
 
@@ -126,7 +125,6 @@ body {
 
 #toolbox > p {
     color: white;
-    font-family: sans-serif;
 }
 
 #toolbox_options {
@@ -135,7 +133,6 @@ body {
 }
 
 #toolbox_options > p {
-    font-family: sans-serif;
     color: white;
 }
 
@@ -145,6 +142,5 @@ div.tool {
 }
 
 p.tool {
-    font-family: sans-serif;
     color: white;
 }

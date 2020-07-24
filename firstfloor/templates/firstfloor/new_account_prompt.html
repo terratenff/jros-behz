@@ -1,0 +1,30 @@
+<div id="new_account_box" class="new_account_container">
+    <form id="new_account_form" action="{% url 'firstfloor:new_account' %}" method="post">
+        {% csrf_token %}
+        <label for="new-firstname">First Name</label>
+        <br>
+        <input type="text" name="new-firstname" id="new-firstname" required>
+        <br><br>
+        <label for="new-lastname">Last Name</label>
+        <br>
+        <input type="text" name="new-lastname" id="new-lastname" required>
+        <br><br>
+        <label for="new-email">Email Address</label>
+        <br>
+        <input type="email" name="new-email" id="new-email" required>
+        <br><br>
+        <label for="new-username">Username</label>
+        <br>
+        <input type="text" name="new-username" id="new-username" required>
+        <br><br>
+        <label for="new-password">Password</label>
+        <br>
+        <input type="password" name="new-password" id="new-password" required>
+        <br><br>
+        <label for="new-repeat-password">Repeat Password</label>
+        <br>
+        <input type="password" name="new-repeat-password" id="new-repeat-password" required>
+        <br><br>
+        <input type="submit" value="Create Account">
+    </form>
+</div>

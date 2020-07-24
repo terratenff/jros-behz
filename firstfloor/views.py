@@ -15,9 +15,9 @@ def login_prompt(request):
 
     if "next" in request.GET:
         destination = request.GET["next"]
-        return render(request, "firstfloor/login_prompt.html", context = {"next": destination})
+        return render(request, "firstfloor/login.html", context = {"next": destination, "redirect": True})
     else:
-        return render(request, "firstfloor/login.html", context = None)
+        return render(request, "firstfloor/login.html", context = {"redirect": False})
 
 def login(request):
     """
@@ -25,8 +25,29 @@ def login(request):
     """
 
     # TODO: Collect "next" value from POST if it exists.
+    # TODO: Redirect to "next" or profile overview.
 
     return render(request, "firstfloor/login.html", context = None)
+
+def new_account_prompt(request):
+    """
+    General Account creation page. Contains various fields where
+    user must input necessary data to create an account.
+    """
+
+    # TODO
+
+    return render(request, "firstfloor/new_account.html", context = None)
+
+def new_account(request):
+    """
+    This view conducts the act of creating a new account.
+    """
+
+    # TODO: Create new account from POST data.
+    # TODO: Redirect to profile overview.
+
+    return render(request, "firstfloor/profile_overview.html", context = None)
 
 def logout(request):
     """

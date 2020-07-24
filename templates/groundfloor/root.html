@@ -34,7 +34,7 @@
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'firstfloor:logout' %}">Log Out</a></li>
                 {% else %}
-                <li><a href="{% url 'firstfloor:login' %}">Log In</a></li>
+                <li><a href="{% url 'firstfloor:login_prompt' %}">Log In</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -204,9 +204,9 @@
 
     </div>
 
-    {% block sitescripts %}{% endblock sitescripts %}
     <script type="text/javascript" src="{% static 'groundfloor/js/cookie_functions.js' %}"></script>
     <script type="text/javascript" src="{% static 'groundfloor/js/dark_mode.js' %}"></script>
     <script type="text/javascript" src="{% static 'groundfloor/js/privacy_notice.js' %}"></script>
+    {% block sitescripts %}{% endblock sitescripts %}
 </body>
 </html>

@@ -27,15 +27,6 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # Useful User Model attributes:
-    # first_name
-    # last_name
-    # email
-    # password
-    # is_superuser
-    # date_joined
-    # last_login
-
     friend_list = models.ManyToManyField("self")
     description = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=255, blank=False)

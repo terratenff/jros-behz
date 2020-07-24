@@ -17,7 +17,6 @@ body {
 
 #topbar_functions_list > li {
     color: darkblue;
-    font-family: sans-serif;
 }
 
 #topbar_functions_list > li:hover {
@@ -33,14 +32,12 @@ body {
 }
 
 #searchbox input[type=text] {
-    font-family: sans-serif;
     background-color: white;
     color: black;
     border: 1px solid black;
 }
 
 #searchbox input[type=submit] {
-    font-family: sans-serif;
     background-color: #00aaff;
     color: black;
     border: 2px solid #004466;
@@ -55,7 +52,6 @@ body {
 }
 
 #page_top > h1 {
-    font-family:sans-serif;
     color: black;
 }
 
@@ -65,7 +61,12 @@ body {
 
 #content > p {
     color: black;
-    font-family: sans-serif;
+}
+
+.content_button {
+    background-color: #00aaee;
+    border: 2px solid #117788;
+    color: black;
 }
 
 #privacy_notice {
@@ -75,7 +76,6 @@ body {
 
 #privacy_notice > p {
     color: black;
-    font-family: sans-serif;
 }
 
 #page_bottom {
@@ -97,7 +97,6 @@ body {
 
 .page_bottom_list > li {
     color: black;
-    font-family: sans-serif;
     border: 2px solid #007399;
 }
 
@@ -126,7 +125,6 @@ body {
 
 #toolbox > p {
     color: darkblue;
-    font-family: sans-serif;
 }
 
 #toolbox_options {
@@ -135,7 +133,6 @@ body {
 }
 
 #toolbox_options > p {
-    font-family: sans-serif;
     color: black;
 }
 
@@ -145,6 +142,5 @@ div.tool {
 }
 
 p.tool {
-    font-family: sans-serif;
     color: black;
 }
