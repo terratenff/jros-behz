@@ -5,6 +5,14 @@ Login (Firstfloor)
 {% endblock title %}
 
 {% block topnotice %}
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
 {% endblock topnotice %}
 
 {% block pagetitle %}

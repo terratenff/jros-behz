@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from firstfloor.models import Profile
@@ -11,31 +14,38 @@ def login_prompt(request):
     existing account, and the option to create a new one.
     """
 
-    # TODO
-
-    if "next" in request.GET:
+    try:
         destination = request.GET["next"]
-        return render(request, "firstfloor/login.html", context = {"next": destination, "redirect": True})
-    else:
-        return render(request, "firstfloor/login.html", context = {"redirect": False})
+    except KeyError:
+        destination = "/profile_overview/"
+
+    return render(request, "firstfloor/login.html", context = {"next": destination})
 
 def login(request):
     """
     This view conducts the act of logging in.
     """
 
-    # TODO: Collect "next" value from POST if it exists.
-    # TODO: Redirect to "next" or profile overview.
+    if request.method == "POST":
+        destination = request.POST["login-destination"]
+        username = request.POST["login-username"]
+        password = request.POST["login-password"]
 
-    return render(request, "firstfloor/login.html", context = None)
+        logged_user = authenticate(username=username, password=password)
+        if logged_user is not None:
+            dj_login(request, logged_user)
+            return redirect(destination)
+        else:
+            login_error = "Invalid username/password."
+            return render(request, "firstfloor/login.html", context = {"next": destination, "error": login_error})
+    else:
+        render(request, "firstfloor/login.html", context = {"next": destination})
 
 def new_account_prompt(request):
     """
     General Account creation page. Contains various fields where
     user must input necessary data to create an account.
     """
-
-    # TODO
 
     return render(request, "firstfloor/new_account.html", context = None)
 
@@ -44,17 +54,47 @@ def new_account(request):
     This view conducts the act of creating a new account.
     """
 
-    # TODO: Create new account from POST data.
-    # TODO: Redirect to profile overview.
+    if request.method == "POST":
+        new_username = request.POST["new-username"]
+        new_password = request.POST["new-password"]
+        new_repeat_password = request.POST["new-repeat-password"]
+        new_firstname = request.POST["new-firstname"]
+        new_lastname = request.POST["new-lastname"]
+        new_email = request.POST["new-email"]
 
-    return render(request, "firstfloor/profile_overview.html", context = None)
+        if new_password == new_repeat_password:
+            new_user = User.objects.create_user(new_username, new_email, new_password)
+            new_user.first_name = new_firstname
+            new_user.last_name = new_lastname
+            dj_login(request, new_user)
+            new_profile = Profile.objects.create(user=new_user)
+            return redirect(reverse("firstfloor:profile_overview"))
+        else:
+            error_text = "Given passwords do not match."
+            return render(request, "firstfloor/new_account.html", context = {"error": error_text})
+    else:
+        return render(request, "firstfloor/new_account.html", context = None)
+
+    new_user = User.objects.create("username", "email@email.com", "password")
+    new_user.first_name = "firstname"
+    new_user.last_name = "lastname"
+    new_profile = Profile.objects.create(user=new_user)
+
+    return redirect(reverse("firstfloor:profile_overview"))
 
 def logout(request):
     """
-    Site for logging out.
+    Logs out the user.
     """
 
-    # TODO
+    dj_logout(request)
+    messages.add_message(request, messages.SUCCESS, "You have logged out successfully!")
+    return redirect(reverse("firstfloor:login_prompt"))
+
+def logout_landing(request):
+    """
+    The landing site upon logging out.
+    """
 
     return render(request, "firstfloor/logout.html", context = None)
 
